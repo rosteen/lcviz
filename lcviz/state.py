@@ -51,11 +51,16 @@ class ScatterViewerState(ScatterViewerState):
             y_min = min(y_min, np.nanmin(y_data))
             y_max = max(y_max, np.nanmax(y_data))
 
-        with delay_callback(self, 'x_min', 'x_max', 'y_min', 'y_max'):
-            self.x_min = x_min
-            self.x_max = x_max
-            self.y_min = y_min
-            self.y_max = y_max
-            # We need to adjust the limits in here to avoid triggering all
-            # the update events then changing the limits again.
-            self._adjust_limits_aspect()
+
+        x_lim_helper = getattr(self, f'x_lim_helper')
+        x_lim_helper.lower = x_min
+        x_lim_helper.upper = x_max
+
+        y_lim_helper = getattr(self, f'y_lim_helper')
+        y_lim_helper.lower = y_min
+        y_lim_helper.upper = y_max
+
+        x_lim_helper.update_values()
+        y_lim_helper.update_values()
+
+        self._adjust_limits_aspect()
