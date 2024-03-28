@@ -1,4 +1,3 @@
-from echo import delay_callback
 import numpy as np
 
 from glue.viewers.scatter.state import ScatterViewerState
@@ -51,12 +50,11 @@ class ScatterViewerState(ScatterViewerState):
             y_min = min(y_min, np.nanmin(y_data))
             y_max = max(y_max, np.nanmax(y_data))
 
-
-        x_lim_helper = getattr(self, f'x_lim_helper')
+        x_lim_helper = getattr(self, 'x_lim_helper')
         x_lim_helper.lower = x_min
         x_lim_helper.upper = x_max
 
-        y_lim_helper = getattr(self, f'y_lim_helper')
+        y_lim_helper = getattr(self, 'y_lim_helper')
         y_lim_helper.lower = y_min
         y_lim_helper.upper = y_max
 
